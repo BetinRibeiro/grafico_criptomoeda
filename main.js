@@ -55,7 +55,7 @@ const converterData=(timestamp)=> {
 const renderizaGrafico = (dados) => {
     // Chama a função zerarGrafico para limpar o gráfico existente antes de renderizar um novo
     zerarGrafico();
-    // console.log(listaDatas);
+    console.log(listaDatas);
     // Obtém o elemento do gráfico pelo ID 'myChart' e armazena em ctx
     const ctx = document.getElementById('myChart');
 
