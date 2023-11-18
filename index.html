@@ -53,7 +53,6 @@
             <li class="breadcrumb-item active">AUDIO</li>
             <li class="breadcrumb-item active">MINA</li>
             <li class="breadcrumb-item active">HOT</li>
-            <li class="breadcrumb-item active">BORA</li>
           </ul>
           <div class="row">
             <div class="col-md-12">
@@ -78,3 +77,16 @@
       </div>
 </body>
 </html>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const lista = document.querySelectorAll('.breadcrumb-item');
+      lista.forEach(item => {
+          item.addEventListener('click', function() {
+              const descricao = this.textContent.trim();
+              gerarInformacoes(descricao);
+          });
+      });
+  });
+</script>
