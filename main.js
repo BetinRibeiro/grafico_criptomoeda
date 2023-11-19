@@ -6,15 +6,20 @@ var media=0
 var listaBackgroundColor = []
 var listaDatas = []
 var ctx = document.getElementById('myChart');
+var mediaMovel = []
 
 const calcularEMA=(lista)=> {
     const alpha = 2 / (8 + 1); // Fator de suavização para 8 semanas (neste caso)
     let ema = [];
+    
     // console.log(lista);
     // Calcula a média inicial usando a média simples dos primeiros 8 valores
     let somaInicial = 0;
     for (let i = 0; i < 8; i++) {
-      somaInicial += lista[i];
+      
+    somaInicial += parseFloat(lista[i][2]);
+    //   console.log(lista[i][2]);
+    //   console.log(somaInicial);
     }
     ultimo_valor=0
     ema.push(somaInicial / 8);
@@ -23,10 +28,12 @@ const calcularEMA=(lista)=> {
     for (let i = 8; i < lista.length; i++) {
       let valorEMA = (lista[i][2] - ema[i - 8]) * alpha + ema[i - 8];
       ema.push(valorEMA);
-      ultimo_valor=(lista[i][2]);
+      ultimo_valor=(valorEMA);
+    //   console.log(valorEMA);
       
     }
-  
+    mediaMovel = ema
+    // console.log(mediaMovel);
     return ultimo_valor;
   }
   
@@ -55,24 +62,31 @@ const converterData=(timestamp)=> {
 const renderizaGrafico = (dados) => {
     // Chama a função zerarGrafico para limpar o gráfico existente antes de renderizar um novo
     zerarGrafico();
-    console.log(listaDatas);
+    // console.log(listaDatas);
     // Obtém o elemento do gráfico pelo ID 'myChart' e armazena em ctx
     const ctx = document.getElementById('myChart');
-
+    
     // Cria um novo gráfico usando a biblioteca Chart.js
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: listaDatas,
+            labels: listaDatas.slice(-100),
             datasets: [{
                 label: criptomoeda,
-                data: dados,
+                data: dados.slice(-100),
                 backgroundColor: 'rgba(54, 162, 235, 0.02)', // Cor de fundo dos dados
                 borderColor: 'rgba(54, 162, 235, 1)', // Cor da borda dos dados
                 borderWidth: 1,
                 pointBackgroundColor: 'rgba(90, 252, 3, 1)', // Cor dos pontos no gráfico
                 pointRadius: 1, // Tamanho dos pontos no gráfico
                 pointHoverRadius: 7 // Tamanho dos pontos ao passar o mouse sobre eles
+            }, {
+                label: 'Média Móvel',
+                data: mediaMovel.slice(-100),
+                borderColor: 'red', // Cor da linha da média móvel
+                pointRadius: 1, // Tamanho dos pontos no gráfico
+                borderWidth: 1,
+                fill: false // Não preenche a área abaixo da linha da média móvel
             }]
         },
         options: {
