@@ -11,43 +11,28 @@ var mediaMovel = []
 const calcularEMA=(lista)=> {
     const alpha = 2 / (8 + 1); // Fator de suavização para 8 semanas (neste caso)
     let ema = [];
-    
-    // console.log(lista);
-    // Calcula a média inicial usando a média simples dos primeiros 8 valores
     let somaInicial = 0;
     for (let i = 0; i < 8; i++) {
       
     somaInicial += parseFloat(lista[i][2]);
-    //   console.log(lista[i][2]);
-    //   console.log(somaInicial);
     }
     ultimo_valor=0
     ema.push(somaInicial / 8);
-    // console.log(lista);
-    // Calcula a EMA para os valores restantes
     for (let i = 8; i < lista.length; i++) {
       let valorEMA = (lista[i][2] - ema[i - 8]) * alpha + ema[i - 8];
       ema.push(valorEMA);
-      ultimo_valor=(valorEMA);
-    //   console.log(valorEMA);
-      
+      ultimo_valor=(valorEMA);      
     }
     mediaMovel = ema
-    // console.log(mediaMovel);
     return ultimo_valor;
   }
   
 const isValidFields = () => {
     // Define uma função chamada isValidFields
     return document.getElementById('pesquisa').reportValidity();
-    // Obtém o elemento com o ID 'pesquisa' e chama o método reportValidity()
-    // Esse método é usado para verificar a validade dos campos em um formulário HTML
-    // Retorna um valor booleano (true ou false) indicando se os campos são válidos
 }
 
 const zerarinformacoes= (criptomoeda) =>{
-    // console.log("entraemzerar mais não faz nada");
-    // document.getElementById('informacoes').classList.add('d-none')
 }
 const formataValorDolar=(valor)=>{
     valor =parseFloat(valor).toLocaleString('pt-br',{style: 'currency', currency: 'USD'});
@@ -62,7 +47,6 @@ const converterData=(timestamp)=> {
 const renderizaGrafico = (dados) => {
     // Chama a função zerarGrafico para limpar o gráfico existente antes de renderizar um novo
     zerarGrafico();
-    // console.log(listaDatas);
     // Obtém o elemento do gráfico pelo ID 'myChart' e armazena em ctx
     const ctx = document.getElementById('myChart');
     
@@ -147,7 +131,7 @@ const gerarInformacoes = (criptomoedap) => {
         // Converte a resposta da solicitação para um formato legível (neste caso, um array)
         lista = JSON.parse(request.responseText);
         // Exibe a lista no console para fins de depuração
-        // console.log(lista);
+        
         // Inicializa variáveis para os cálculos
         listaValores = [];
         somaTotal = 0;
