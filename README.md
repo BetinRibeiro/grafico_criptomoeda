@@ -47,4 +47,7 @@ Função assíncrona para preencher uma tabela com informações sobre a criptom
 zerarGrafico()
 
 Função para limpar o gráfico existente.
-[grafico_criptomoeda](https://betinribeiro.github.io/grafico_criptomoeda)
+
+
+
+[Acessar](https://betinribeiro.github.io/grafico_criptomoeda)
