@@ -8,6 +8,38 @@ var listaDatas = []
 var ctx = document.getElementById('myChart');
 var mediaMovel = []
 
+const calcularPercentual = (valor) => {
+    const percentual = (valor).toFixed(1); // Multiplica por 100 para obter o percentual e fixa uma casa decimal
+    return `${percentual}X`;
+};
+
+const obterTopoHistoricoCriptomoeda = (criptomoeda) => {
+    const urlBase = "https://api.binance.com/api/v3/klines";
+    const params = new URLSearchParams({
+        symbol: `${criptomoeda}USDT`,
+        interval: "1d",
+        limit: 3*365,
+    });
+
+    return fetch(`${urlBase}?${params}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`Erro ao buscar dados para ${criptomoeda}`);
+            }
+        })
+        .then(dados => {
+            const precos = dados.map(candle => parseFloat(candle[4]));
+            const topoHistorico = Math.max(...precos);
+            return topoHistorico;
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            return null;
+        });
+};
+
 const calcularEMA=(lista)=> {
     const alpha = 2 / (8 + 1); // Fator de suavização para 8 semanas (neste caso)
     let ema = [];
@@ -54,10 +86,10 @@ const renderizaGrafico = (dados) => {
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: listaDatas.slice(-100),
+            labels: listaDatas.slice(-130),
             datasets: [{
                 label: criptomoeda,
-                data: dados.slice(-100),
+                data: dados.slice(-130),
                 backgroundColor: 'rgba(54, 162, 235, 0.02)', // Cor de fundo dos dados
                 borderColor: 'rgba(54, 162, 235, 1)', // Cor da borda dos dados
                 borderWidth: 1,
@@ -66,7 +98,7 @@ const renderizaGrafico = (dados) => {
                 pointHoverRadius: 7 // Tamanho dos pontos ao passar o mouse sobre eles
             }, {
                 label: 'Média Móvel',
-                data: mediaMovel.slice(-100),
+                data: mediaMovel.slice(-130),
                 borderColor: 'red', // Cor da linha da média móvel
                 pointRadius: 1, // Tamanho dos pontos no gráfico
                 borderWidth: 1,
@@ -78,7 +110,7 @@ const renderizaGrafico = (dados) => {
             legend: {
                 position: 'top',
                 labels: {
-                    fontColor: 'white', // Cor do texto da legenda
+                    fontColor: 'black', // Cor do texto da legenda
                     fontSize: 14 // Tamanho da fonte da legenda
                 }
             },
@@ -97,7 +129,7 @@ const renderizaGrafico = (dados) => {
                         display: false // Oculta as linhas de grade no eixo X
                     },
                     ticks: {
-                        fontColor: 'white' // Cor do texto do eixo X
+                        fontColor: 'black' // Cor do texto do eixo X
                     }
                 }],
                 yAxes: [{
@@ -105,7 +137,7 @@ const renderizaGrafico = (dados) => {
                         color: 'rgba(0, 0, 0, 0.1)' // Cor das linhas de grade no eixo Y
                     },
                     ticks: {
-                        fontColor: 'white' // Cor do texto do eixo Y
+                        fontColor: 'black' // Cor do texto do eixo Y
                     }
                 }]
             }
@@ -177,7 +209,7 @@ const buscar = () => {
     }
 }
 
-const preencheTabela = () => {
+const preencheTabela = async () => {
     // Remove as informações existentes da tabela antes de atualizar
     const rows = document.querySelectorAll('#info>ul div');
     rows.forEach(row => row.parentNode.removeChild(row));
@@ -188,8 +220,9 @@ const preencheTabela = () => {
     
     // Insere as informações da criptomoeda dentro do novo elemento div
 
+    const topoHistorico = await obterTopoHistoricoCriptomoeda(criptomoeda);
     // console.log(precoAntigo);
-    newRow.innerHTML = `
+    newRow.innerHTML =  `
         <h1>${criptomoeda}</h1>
         <li class="list-group-item d-flex justify-content-between">
             <div>
@@ -217,6 +250,24 @@ const preencheTabela = () => {
                 <small class="">4 Semanas</small>
             </div> 
             <span class="">${formataValorDolar(media)}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <h6 class="my-0">
+                    <b>Topo Historico </b>
+                </h6> 
+                <small class="">1200 Dias</small>
+            </div> 
+            <span class="">${formataValorDolar(topoHistorico)}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <h6 class="my-0">
+                    <b>Especulação </b>
+                </h6> 
+                <small class="">Especulação</small>
+            </div> 
+            <span class="">${calcularPercentual(topoHistorico/precoAtual)}</span>
         </li>
     `;
 
