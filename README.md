@@ -1,53 +1,28 @@
-Descrição do Projeto
+# Setup Cripto
 
-O projeto consiste em uma aplicação para obter informações e visualizar dados históricos de criptomoedas, utilizando a API da Binance para acessar informações em tempo real.
-Variáveis Utilizadas
+Um aplicativo web para acompanhar informações sobre criptomoedas, incluindo o preço atual, preço anterior, EMA (Exponential Moving Average), topo histórico e especulação.
 
-    criptomoeda: Variável para armazenar o código da criptomoeda.
-    somaTotal: Variável para armazenar a soma total de valores da criptomoeda.
-    precoAtual: Variável para armazenar o preço atual da criptomoeda.
-    precoAntigo: Variável para armazenar o preço anterior da criptomoeda.
-    media: Variável para armazenar o valor da média móvel da criptomoeda.
-    listaBackgroundColor: Lista para armazenar cores de fundo.
-    listaDatas: Lista para armazenar datas.
-    ctx: Variável para armazenar o contexto do gráfico.
-    mediaMovel: Lista para armazenar valores da média móvel.
+## Visão Geral
 
-Funções
-calcularPercentual(valor)
+Este projeto é uma aplicação web desenvolvida em HTML, CSS e JavaScript, que utiliza a API da Binance para obter dados sobre várias criptomoedas. Ele permite aos usuários buscar informações sobre uma criptomoeda específica e exibir seus detalhes, incluindo o preço atual, preço anterior, EMA, topo histórico e especulação.
 
-Esta função recebe um valor e retorna o valor multiplicado por 100 com uma casa decimal e um símbolo de percentual.
-obterTopoHistoricoCriptomoeda(criptomoeda)
+## Funcionalidades
 
-Função que realiza uma requisição para a API da Binance e retorna o valor do topo histórico de uma criptomoeda.
-calcularEMA(lista)
+- Busca de informações sobre criptomoedas.
+- Exibição do preço atual, preço anterior, EMA, topo histórico e especulação de uma criptomoeda.
+- Gráfico de linhas para visualização dos dados históricos da criptomoeda.
 
-Função para calcular a Média Móvel Exponencial de uma lista de valores.
-isValidFields()
+## Como Usar
 
-Função para verificar a validade dos campos de formulário.
-zerarinformacoes(criptomoeda)
+1. Abra o arquivo `index.html` em um navegador da web.
+2. Selecione uma criptomoeda na lista de breadcrumbs na parte superior da página ou pesquise por uma criptomoeda específica no campo de pesquisa.
+3. Clique no botão de busca para visualizar as informações sobre a criptomoeda selecionada.
+4. As informações serão exibidas em uma tabela e um gráfico.
 
-Função para zerar informações.
-formataValorDolar(valor)
+## Acesso Rápido
 
-Função para formatar um valor para o formato de moeda em dólar.
-converterData(timestamp)
+Você pode acessar o aplicativo online através do [GitHub Pages](https://betinribeiro.github.io/calculo_aposta/).
 
-Função para converter um timestamp para o formato de data dia/mês.
-renderizaGrafico(dados)
+## Contato
 
-Função para renderizar um gráfico utilizando a biblioteca Chart.js.
-gerarInformacoes(criptomoedap)
-
-Função para obter informações sobre uma criptomoeda a partir da API.
-preencheTabela()
-
-Função assíncrona para preencher uma tabela com informações sobre a criptomoeda.
-zerarGrafico()
-
-Função para limpar o gráfico existente.
-
-
-
-[Acessar](https://betinribeiro.github.io/grafico_criptomoeda)
+Para mais informações ou suporte, entre em contato pelo WhatsApp: (88) 98112-6816.
