@@ -21,7 +21,7 @@ Este projeto é uma aplicação web desenvolvida em HTML, CSS e JavaScript, que 
 
 ## Acesso Rápido
 
-Você pode acessar o aplicativo online através do [GitHub Pages](https://betinribeiro.github.io/calculo_aposta/).
+Você pode acessar o aplicativo online através do [GitHub Pages](https://betinribeiro.github.io/grafico_criptomoeda/).
 
 ## Contato
 
